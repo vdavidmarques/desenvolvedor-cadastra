@@ -1,0 +1,14 @@
+@use "../../helpers" as *;
+
+.footer{
+  background-color: $black;
+  height: 33px;
+  
+  &--title{
+    text-align: center;
+    text-transform: uppercase;
+    font-size: px;
+
+    color: $white;
+  }
+}

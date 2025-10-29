@@ -1,0 +1,14 @@
+@use "../../helpers" as *;
+
+.header{
+  border-bottom: 2px solid $grayLight;
+  padding: 16px 0;
+  
+  &--container{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 25px;
+  }
+}
+
