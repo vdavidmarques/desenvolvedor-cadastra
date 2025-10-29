@@ -245,6 +245,11 @@
                 width: 12.1875rem;
                 padding: 8px;
                 cursor: pointer;
+
+                &:hover {
+                  background-color: $orange;
+                  @include transition-colors;
+                }
               }
             }
           }
