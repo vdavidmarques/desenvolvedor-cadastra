@@ -1,10 +1,10 @@
 @use "../../helpers" as *;
 
 .product-page {
-  margin-top: 1.25rem;
+  margin: 1.25rem 0;
 
   @media (min-width: $breakpoint-lg) {
-    margin-top: 2.5rem;
+    margin: 2.5rem 0;
   }
 
   &--header {
@@ -35,6 +35,7 @@
         flex: 1;
         max-width: 142px;
         border: 1px solid rgb(0 0 0 / 50%);
+        background-color: white;
         
         option{
           font-family: $fontOpenSans;
@@ -80,7 +81,7 @@
             display: flex;
             align-items: center;
             gap: 10px;
-            padding: 8px 12px;
+            padding: 8px 0;
             cursor: pointer;
             background-color: transparent;
             border: inherit;
@@ -115,6 +116,40 @@
             }
           }
         }
+
+        &--view-all{
+          background-color: transparent;
+          border: inherit;
+          text-decoration: underline;
+          font-size: 12px;
+          cursor: pointer;
+          color: $grayMedium;
+          
+          .arrow{
+            position: relative;
+            display: flex;
+
+            &::after{
+              content: '';
+              position: absolute;
+              top: 5px;
+              right: -10px;
+              width: 7px;
+              height: 5px;
+              background-image: url('../../../assets/icons/arrow.svg');
+              background-size: contain;
+              background-repeat: no-repeat;
+              background-position: center;
+            }
+
+            &.up{
+              &::after{
+                transform: rotate(180deg);
+              }
+            }
+
+          }
+        }
       }
 
       .size-filter {
@@ -125,28 +160,23 @@
         }
 
         &--options {
-          display: flex;
+          display: grid;
           flex-wrap: wrap;
           gap: 8px;
+          @include grid-cols-4;
 
           .size-option {
             padding: 8px 12px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
             background: white;
             cursor: pointer;
             font-size: 14px;
-            transition: all 0.2s ease;
-            min-width: 40px;
+            border: 1px solid $grayMedium;
+            color: rgba(0, 0, 0, 0.50);
 
-            &:hover {
-              border-color: #007bff;
-            }
-
-            &.selected {
-              border-color: #007bff;
-              background-color: #007bff;
-              color: white;
+            &:hover, &.selected {
+              border-color: $orange;
+              color: $black;
+              @include transition-colors;
             }
           }
         }
@@ -159,41 +189,54 @@
           @extend %filter-subtitles;
         }
 
-        &--inputs {
+        &--options {
           display: flex;
-          gap: 10px;
-          margin-bottom: 10px;
+          flex-direction: column;
+          gap: 8px;
 
-          .price-input-group {
-            flex: 1;
+          .filter-option {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px 0;
+            cursor: pointer;
+            background-color: transparent;
+            border: none;
+            width: 100%;
+            text-align: left;
 
-            label {
-              display: block;
-              font-size: 12px;
-              color: #666;
-              margin-bottom: 4px;
+            &.filter-option-3{
+              margin-left: -2px;
             }
 
-            input {
-              width: 100%;
-              padding: 8px;
-              border: 1px solid #ddd;
-              border-radius: 4px;
-              font-size: 14px;
+            .filter-dot {
+              width: 16px;
+              height: 16px;
+              border: 1px solid rgb(0 0 0 / 50%);
+              position: relative;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              flex-shrink: 0;
+            }
 
-              &:focus {
-                outline: none;
-                border-color: #007bff;
+            &.selected {
+              .filter-dot {
+                &:before {
+                  content: "";
+                  position: absolute;
+                  width: 10px;
+                  height: 10px;
+                  background-color: $orange;
+                }
               }
             }
-          }
-        }
 
-        &--range {
-          display: flex;
-          justify-content: space-between;
-          font-size: 12px;
-          color: #666;
+            .filter-name {
+              font-size: 14px;
+              color: $black;
+            }
+          }
         }
       }
     }
@@ -252,6 +295,30 @@
                 }
               }
             }
+          }
+        }
+      }
+
+      &--load-more{
+        text-align: center;
+        margin-top: 5rem;
+
+        .load-more-button{
+          background-color: $orange;
+          text-transform: uppercase;
+          color: white;
+          font-weight: bold;
+          font-size: 14px;
+          border: inherit;
+          width: fit-content;
+          border: 1px solid $black;
+          height: 2.1875rem;
+          min-width: 10.9375rem;
+          cursor: pointer;
+
+          &:hover{
+            background-color: $black;
+            @include transition-colors;
           }
         }
       }
