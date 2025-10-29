@@ -20,7 +20,7 @@ export const ProductGrid: React.FC<ProductGridProps> = ({
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [visibleCount, setVisibleCount] = useState(9); 
+  const [visibleCount, setVisibleCount] = useState(6); 
 
   useEffect(() => {
     loadProducts();
@@ -40,7 +40,7 @@ export const ProductGrid: React.FC<ProductGridProps> = ({
   };
 
   const loadMoreProducts = () => {
-    setVisibleCount(prev => prev + 6);
+    setVisibleCount(prev => prev + 3);
   };
 
   const filteredAndSortedProducts = () => {
@@ -54,8 +54,8 @@ export const ProductGrid: React.FC<ProductGridProps> = ({
       }
 
       if (filters.sizes.length > 0) {
-        filtered = filtered.filter(product =>
-          filters.sizes.includes(product.size)
+        filtered = filtered.filter(product => 
+          product.size.some(s => filters.sizes.includes(s))
         );
       }
 
@@ -66,6 +66,9 @@ export const ProductGrid: React.FC<ProductGridProps> = ({
     }
 
     switch (sortType) {
+      case 'order-by':
+        filtered.sort((a, b) => a.id - b.id);
+        break;
       case 'price-low':
         filtered.sort((a, b) => a.price - b.price);
         break;
@@ -74,15 +77,16 @@ export const ProductGrid: React.FC<ProductGridProps> = ({
         break;
       case 'newest':
       default:
-        filtered.sort((a, b) => b.id - a.id);
+        filtered.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
         break;
     }
 
     return filtered;
   };
 
-  const displayedProducts = filteredAndSortedProducts().slice(0, visibleCount);
-  const hasMoreProducts = visibleCount < filteredAndSortedProducts().length;
+  const finalProducts = filteredAndSortedProducts();
+  const displayedProducts = finalProducts.slice(0, visibleCount);
+  const hasMoreProducts = visibleCount < finalProducts.length;
 
   if (loading) {
     return (
@@ -125,7 +129,7 @@ export const ProductGrid: React.FC<ProductGridProps> = ({
       )}
 
       {hasMoreProducts && displayedProducts.length > 0 && (
-        <div className="load-more-container">
+        <div className="product-grid--load-more">
           <button onClick={loadMoreProducts} className="load-more-button">
             Carregar Mais Produtos
           </button>

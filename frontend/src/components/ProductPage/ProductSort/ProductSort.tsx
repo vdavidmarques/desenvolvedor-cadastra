@@ -21,7 +21,7 @@ export const ProductSort: React.FC<ProductSortProps> = ({
         value={currentSort} 
         onChange={handleSortChange}
       >
-        <option value="Ordenar por:">Ordenar por:</option>
+        <option value="order-by" disabled>Ordenar por:</option>
         <option value="newest">Mais recentes</option>
         <option value="price-low">Menor preço</option>
         <option value="price-high">Maior preço</option>

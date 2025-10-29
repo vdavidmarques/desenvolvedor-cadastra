@@ -12,9 +12,7 @@ export const SizeFilter: React.FC<SizeFilterProps> = ({
   onSizeChange
 }) => {
   const handleSizeToggle = (size: string) => {
-    const newSelectedSizes = selectedSizes.includes(size)
-      ? selectedSizes.filter(s => s !== size)
-      : [...selectedSizes, size];
+    const newSelectedSizes = selectedSizes.includes(size) ? [] : [size];
     
     onSizeChange(newSelectedSizes);
   };
@@ -23,9 +21,9 @@ export const SizeFilter: React.FC<SizeFilterProps> = ({
     <div className="size-filter">
       <h3 className="size-filter--subtitle">Tamanhos</h3>
       <div className="size-filter--options">
-        {sizes.map((size, index) => (
+        {sizes.sort().map((size) => (
           <button
-            key={`size-filter-${index}`}
+            key={size}
             className={`size-option ${selectedSizes.includes(size) ? 'selected' : ''}`}
             onClick={() => handleSizeToggle(size)}
           >

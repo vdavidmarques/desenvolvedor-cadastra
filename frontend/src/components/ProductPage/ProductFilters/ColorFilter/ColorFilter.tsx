@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 interface ColorFilterProps {
   colors: string[];
@@ -11,19 +11,22 @@ export const ColorFilter: React.FC<ColorFilterProps> = ({
   selectedColors,
   onColorChange
 }) => {
+  const [isExpanded, setIsExpanded] = useState(false);
+  const initialColorLimit = 5;
   const handleColorToggle = (color: string) => {
-    const newSelectedColors = selectedColors.includes(color)
-      ? selectedColors.filter(c => c !== color)
-      : [...selectedColors, color];
+    const newSelectedColors = selectedColors.includes(color) ? [] : [color];
     
     onColorChange(newSelectedColors);
   };
+
+  const sortedColors = [...colors].sort();
+  const colorsToShow = isExpanded ? sortedColors : sortedColors.slice(0, initialColorLimit);
 
   return (
     <div className="color-filter">
       <h3 className="color-filter--subtitle">Cores</h3>
       <div className="color-filter--options">
-        {colors.map((color) => (
+        {colorsToShow.map((color) => (
           <button
             key={color}
             className={`color-option ${selectedColors.includes(color) ? 'selected' : ''}`}
@@ -35,6 +38,16 @@ export const ColorFilter: React.FC<ColorFilterProps> = ({
           </button>
         ))}
       </div>
+      {sortedColors.length > initialColorLimit && (
+        <button 
+          className="color-filter--view-all"
+          onClick={() => setIsExpanded(!isExpanded)}
+        >
+          <span className={`arrow ${isExpanded ? 'up' : 'down'}`}>
+            {isExpanded ? 'Ver menos cores' : 'Ver todas as cores'}
+          </span>
+        </button>
+      )}
     </div>
   );
 };

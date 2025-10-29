@@ -6,11 +6,11 @@ import type { Product } from '../../types/product';
 import { productService } from '../../services/api';
 
 export const ProductPage: React.FC = () => {
-  const [sortType, setSortType] = useState('newest');
+  const [sortType, setSortType] = useState('order-by');
   const [selectedFilters, setSelectedFilters] = useState({
     colors: [] as string[],
     sizes: [] as string[],
-    priceRange: { min: 0, max: 1000 }
+    priceRange: { min: 0, max: Infinity } // Inicializa com uma faixa ampla que será ajustada
   });
   const [availableFilters, setAvailableFilters] = useState({
     colors: [] as string[],
@@ -28,7 +28,7 @@ export const ProductPage: React.FC = () => {
       const products: Product[] = response.data;
       
       const uniqueColors = [...new Set(products.map(p => p.color))];
-      const uniqueSizes = [...new Set(products.map(p => p.size))];
+      const uniqueSizes = [...new Set(products.flatMap(p => p.size))];
       const prices = products.map(p => p.price);
       
       setAvailableFilters({
@@ -40,13 +40,7 @@ export const ProductPage: React.FC = () => {
         }
       });
 
-      setSelectedFilters(prev => ({
-        ...prev,
-        priceRange: {
-          min: Math.min(...prices),
-          max: Math.max(...prices)
-        }
-      }));
+      setSelectedFilters(prev => ({ ...prev, priceRange: { min: Math.min(...prices), max: Math.max(...prices) } }));
     } catch (error) {
       console.error('Error loading filter options:', error);
     }

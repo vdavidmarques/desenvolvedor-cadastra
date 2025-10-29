@@ -2,10 +2,11 @@ export interface Product {
   id: number;
   name: string;
   price: number;
-  parcelamento: string[];
+  parcelamento: number[];
   color: string;
-  size: string;
+  size: string[];
   image: string;
+  date: string;
   description: string;
   category?: string;
   inStock?: boolean;

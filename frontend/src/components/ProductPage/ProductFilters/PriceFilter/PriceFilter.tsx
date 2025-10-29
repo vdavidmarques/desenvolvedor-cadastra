@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 interface PriceRange {
   min: number;
@@ -16,53 +16,40 @@ export const PriceFilter: React.FC<PriceFilterProps> = ({
   selectedPriceRange,
   onPriceChange
 }) => {
-  const [localRange, setLocalRange] = useState<PriceRange>(selectedPriceRange);
+  const priceRanges = [
+    { label: 'de R$0 até R$50', min: 0, max: 50 },
+    { label: 'de R$51 até R$150', min: 51, max: 150 },
+    { label: 'de R$151 até R$300', min: 151, max: 300 },
+    { label: 'de R$301 até R$500', min: 301, max: 500 },
+    { label: 'a partir de R$501', min: 501, max: Infinity },
+  ];
 
-  const handleMinPriceChange = (value: number) => {
-    const newRange = { ...localRange, min: value };
-    setLocalRange(newRange);
-    onPriceChange(newRange);
-  };
+  const defaultPriceRange = priceRange;
 
-  const handleMaxPriceChange = (value: number) => {
-    const newRange = { ...localRange, max: value };
-    setLocalRange(newRange);
-    onPriceChange(newRange);
+  const handlePriceRangeChange = (range: PriceRange) => {
+    const isCurrentlySelected = selectedPriceRange.min === range.min && selectedPriceRange.max === range.max;
+    const newSelectedRange = isCurrentlySelected ? defaultPriceRange : range;
+    onPriceChange(newSelectedRange);
   };
 
   return (
     <div className="price-filter">
       <h3 className="price-filter--subtitle">Faixa de Preço</h3>
-      
-      <div className="price-filter--inputs">
-        <div className="price-input-group">
-          <label htmlFor="min-price">Mínimo (R$)</label>
-          <input
-            id="min-price"
-            type="number"
-            value={localRange.min}
-            onChange={(e) => handleMinPriceChange(Number(e.target.value))}
-            min={priceRange.min}
-            max={priceRange.max}
-          />
-        </div>
-        
-        <div className="price-input-group">
-          <label htmlFor="max-price">Máximo (R$)</label>
-          <input
-            id="max-price"
-            type="number"
-            value={localRange.max}
-            onChange={(e) => handleMaxPriceChange(Number(e.target.value))}
-            min={priceRange.min}
-            max={priceRange.max}
-          />
-        </div>
-      </div>
-      
-      <div className="price-filter--range">
-        <span>R$ {priceRange.min}</span>
-        <span>R$ {priceRange.max}</span>
+      <div className="price-filter--options">
+        {priceRanges.map((range, index) => {
+          const isSelected = selectedPriceRange.min === range.min && selectedPriceRange.max === range.max;
+          return (
+            <button
+              key={range.label}              
+              className={`filter-option filter-option-${index} ${isSelected ? 'selected' : ''}`}
+              onClick={() => handlePriceRangeChange(range)}
+              aria-label={`Filtrar por preço: ${range.label}`}
+            >
+              <span className="filter-dot"></span>
+              <span className="filter-name">{range.label}</span>
+            </button>
+          );
+        })}
       </div>
     </div>
   );
