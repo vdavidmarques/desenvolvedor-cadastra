@@ -1,6 +1,6 @@
 import logo from "../../assets/logo.svg";
 import bagIcon from "../../assets/icons/bag.svg";
-import { useCart } from "../Header/CartContext";
+import { useCart } from "./CartContext";
 
 const Header = () => {
   const { getCartItemCount } = useCart();
