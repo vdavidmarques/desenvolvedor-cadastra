@@ -4,29 +4,32 @@ interface ColorFilterProps {
   colors: string[];
   selectedColors: string[];
   onColorChange: (colors: string[]) => void;
+  isModal?: boolean;
 }
 
 export const ColorFilter: React.FC<ColorFilterProps> = ({
   colors,
   selectedColors,
-  onColorChange
+  onColorChange,
+  isModal = false
 }) => {
-  const [isExpanded, setIsExpanded] = useState(false);
+  const [showAllColors, setShowAllColors] = useState(false);
   const initialColorLimit = 5;
   const handleColorToggle = (color: string) => {
     const newSelectedColors = selectedColors.includes(color) ? [] : [color];
     
     onColorChange(newSelectedColors);
   };
-
-  const sortedColors = [...colors].sort();
-  const colorsToShow = isExpanded ? sortedColors : sortedColors.slice(0, initialColorLimit);
+  const toggleShowAllColors = () => {
+    setShowAllColors(!showAllColors);
+  };
+  const visibleColors = isModal || showAllColors ? colors : colors.slice(0, 5);
 
   return (
     <div className="color-filter">
       <h3 className="color-filter--subtitle">Cores</h3>
-      <div className="color-filter--options">
-        {colorsToShow.map((color) => (
+      <div className="color-filter--options">        
+        {visibleColors.map((color) => (
           <button
             key={color}
             className={`color-option ${selectedColors.includes(color) ? 'selected' : ''}`}
@@ -38,13 +41,13 @@ export const ColorFilter: React.FC<ColorFilterProps> = ({
           </button>
         ))}
       </div>
-      {sortedColors.length > initialColorLimit && (
+      {!isModal && colors.length > initialColorLimit && (
         <button 
           className="color-filter--view-all"
-          onClick={() => setIsExpanded(!isExpanded)}
+          onClick={toggleShowAllColors}
         >
-          <span className={`arrow ${isExpanded ? 'up' : 'down'}`}>
-            {isExpanded ? 'Ver menos cores' : 'Ver todas as cores'}
+          <span className={`arrow ${showAllColors ? 'up' : ''}`}>
+            {showAllColors ? 'Ver menos' : 'Ver todas as cores'}
           </span>
         </button>
       )}

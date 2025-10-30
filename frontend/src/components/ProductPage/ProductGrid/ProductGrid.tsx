@@ -20,10 +20,25 @@ export const ProductGrid: React.FC<ProductGridProps> = ({
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [visibleCount, setVisibleCount] = useState(6); 
+
+  const getInitialVisibleCount = () => {
+    if (typeof window !== 'undefined' && window.innerWidth < 1024) {
+      return 4;
+    }
+    return 6;
+  };
+  
+  const [visibleCount, setVisibleCount] = useState(getInitialVisibleCount()); 
 
   useEffect(() => {
     loadProducts();
+
+    const handleResize = () => {
+      setVisibleCount(getInitialVisibleCount());
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
   }, []);
 
   const loadProducts = async () => {
