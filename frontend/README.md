@@ -1,27 +1,21 @@
-Desafio Front-end – Cadastra
+# Desafio Front-end – Cadastra
 
 Este projeto foi desenvolvido para o processo seletivo da Cadastra, com foco em boas práticas de HTML, CSS e TypeScript, consumo de API e responsividade.
 O layout base foi seguido conforme o Figma disponibilizado.
 
-🚀 Tecnologias utilizadas
+## 🚀 Tecnologias utilizadas
 
-React + Vite + TypeScript
+- React + Vite + TypeScript
+- HTML5 / CSS3 (Sass)
+- JSON Server (para simular API)
+- Node.js 20+
+- Git + GitHub
 
-HTML5 / CSS3 (sem frameworks CSS)
+## 📦 Instalação e uso
 
-JSON Server (para simular API)
+Certifique-se de ter Node.js 20+ instalado.
 
-Gulp (otimização de imagens)
-
-Node.js 14+
-
-Git + GitHub
-
-📦 Instalação e uso
-
-Certifique-se de ter Node.js 14+ instalado.
-
-1️⃣ Instalar dependências
+### 1️⃣ Instalar dependências
 
 ```bash
 npm install
@@ -40,31 +34,13 @@ API (json-server): http://localhost:5000/products
 
 ✅ Listagem de produtos via API
 ✅ Filtros por cor, tamanho e preço
-✅ Adição de produtos ao carrinho
 ✅ Botão “Carregar mais produtos”
 ✅ Layout responsivo
 ✅ Clean Code em TypeScript
-
-```pgsql
-frontend/
-│
-├── src/
-│   ├── components/
-│   ├── pages/
-│   ├── hooks/
-│   ├── services/
-│   ├── styles/
-│   └── App.tsx
-├── db.json
-├── gulpfile.js
-├── package.json
-└── README.md
-
-```
 
 👨‍💻 Autor
 
 # Vinícius David Marques
 
-### 📧 viniciusdmarques@gmail.com
-### 🌐 github.com/viniciusdmarques
+### 📧 vdavidmarques@gmail.com
+### 🌐 [github.com/vdavidmarques](https://github.com/vdavidmarques)
