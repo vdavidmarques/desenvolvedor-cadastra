@@ -1,23 +1,58 @@
 @use "../../helpers" as *;
 
 .product-page {
-  margin: 1.25rem 0;
+  margin-top: 1.25rem;
+  margin-bottom: 1.25rem;
 
   @media (min-width: $breakpoint-lg) {
-    margin: 2.5rem 0;
+    margin-top: 2.5rem;
+    margin-bottom: 2.5rem;
   }
 
   &--header {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 30px;
+    justify-content: center;
     flex-wrap: wrap;
+    margin-bottom: 20px;
     gap: 15px;
+    flex-direction: column;
+    align-items: center;
+
+    @media (min-width: $breakpoint-lg) {
+      margin-bottom: 30px;
+      justify-content: space-between;
+      flex-direction: row;
+    }
 
     &--title {
       font-size: 32px;
       color: $grayDark;
+      text-align: center;
+      @media (min-width: $breakpoint-lg) {
+        text-align: left;
+      }
+    }
+
+    &--option{
+      display: grid;
+      width: 100%;
+      @include grid-cols-2;
+      
+      @media (min-width: $breakpoint-lg) {
+        display: none;
+      }
+
+      button{
+        background-color: $white;
+        font-size: 24px;
+        color: $grayMedium;
+        border: 1px solid $grayMedium;
+        padding: 5px 0;
+
+        &.order{
+          border-left: 0;
+        }
+      }
     }
 
     &--sort {
@@ -36,7 +71,7 @@
         max-width: 142px;
         border: 1px solid rgb(0 0 0 / 50%);
         background-color: white;
-        
+
         option{
           font-family: $fontOpenSans;
           
@@ -61,6 +96,7 @@
       height: fit-content;
       margin-bottom: 20px;
       @include col-span-12;
+      
       @media (min-width: $breakpoint-lg) {
         @include col-span-3;
       }
@@ -69,7 +105,11 @@
         margin-bottom: 25px;
 
         &--subtitle {
+          display: none;
           @extend %filter-subtitles;
+          @media (min-width: $breakpoint-lg) {
+            display: block;
+          }
         }
 
         &--options {
@@ -156,7 +196,11 @@
         margin-bottom: 25px;
 
         &--subtitle {
+          display: none;
           @extend %filter-subtitles;
+          @media (min-width: $breakpoint-lg) {
+            display: block;
+          }
         }
 
         &--options {
@@ -186,7 +230,11 @@
         margin-bottom: 25px;
 
         &--subtitle {
+          display: none;
           @extend %filter-subtitles;
+          @media (min-width: $breakpoint-lg) {
+            display: block;
+          }
         }
 
         &--options {
@@ -243,6 +291,7 @@
 
     .product-grid {
       @include col-span-12;
+
       @media (min-width: $breakpoint-lg) {
         @include col-span-9;
       }
@@ -250,9 +299,11 @@
       &--content{
         display: grid;
         row-gap: 40px;
+        column-gap: 20px;
         @include grid-cols-2;
 
         @media (min-width: $breakpoint-lg) {
+          column-gap: 0;
           @include grid-cols-3;
         }
 
@@ -261,6 +312,7 @@
           flex-direction: column;
           align-items: center;
           justify-content: center;
+          overflow: hidden;
 
           &--info{
             text-align: center;
@@ -323,5 +375,23 @@
         }
       }
     }
+  }
+}
+
+.product-page--content .product-filters,
+.product-page--header .product-page--header--sort {
+  display: none;
+}
+
+@media (min-width: $breakpoint-lg) {
+  .product-page--content .product-filters,
+  .product-page--header .product-page--header--sort {
+   display: block; 
+  }
+}
+
+@media (min-width: $breakpoint-lg) {
+  .product-page--header--option {
+    display: none;
   }
 }

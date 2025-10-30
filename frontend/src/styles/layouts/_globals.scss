@@ -194,10 +194,9 @@ a[href^="tel"] {
   @media screen and (min-width: $breakpoint-md) {
     max-width: $breakpoint-md;
   }
-  @media screen and (min-width: $breakpoint-md) {
-    max-width: $breakpoint-md;
-  }
+  
   @media screen and (min-width: $breakpoint-lg) {
+    max-width: $breakpoint-lg;
     padding: 0 2.5rem;
   }
   @media screen and (min-width: $breakpoint-xl) {
