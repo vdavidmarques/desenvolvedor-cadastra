@@ -1,21 +1,19 @@
 import React, { useState } from 'react';
 import type { Product } from '../../types/product';
+import { useCart } from '../Header/CartContext';
 
 interface ProductCardProps {
   product: Product;
 }
 
 export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
+  const { addToCart } = useCart();
   const [isAddingToCart, setIsAddingToCart] = useState(false);
   const [imageError, setImageError] = useState(false);
 
   const handleAddToCart = async () => {
     setIsAddingToCart(true);
-    
-    await new Promise(resolve => setTimeout(resolve, 500));
-    
-    console.log('Produto adicionado ao carrinho:', product);
-    
+    addToCart(product);
     setIsAddingToCart(false);
     
     alert(`${product.name} adicionado ao carrinho!`);

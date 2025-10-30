@@ -1,7 +1,11 @@
 import logo from "../../assets/logo.svg";
 import bagIcon from "../../assets/icons/bag.svg";
+import { useCart } from "../Header/CartContext";
 
 const Header = () => {
+  const { getCartItemCount } = useCart();
+  const itemCount = getCartItemCount();
+
   return (
     <header className="header">
       <div className="container header--container">
@@ -10,6 +14,7 @@ const Header = () => {
         </div>
         <div className="header--container--car">
           <img src={bagIcon} alt="Shopping bag" />
+          {itemCount > 0 && <span className="cart-item-count">{itemCount}</span>}
         </div>
       </div>
     </header>
